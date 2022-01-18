@@ -10,4 +10,14 @@ public class HelloWorld {
     public String helloWorld(){
         return "hello world";
     }
+
+    @RequestMapping("/user")
+    public String helloUser(){
+        return "hello user";
+    }
+
+    @RequestMapping("/admin")
+    public String helloAdmin(){
+        return "hello admin";
+    }
 }
