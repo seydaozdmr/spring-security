@@ -22,7 +22,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
         .withUser("test")
         .password("admin")
-        .roles("ADMIN  ");
+        .roles("ADMIN")
+        .and()
+        .withUser("herkes")
+        .password("herkes")
+        .roles("HERKES");
     }
 
     @Bean
@@ -33,6 +37,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").hasRole("USER");
+                .antMatchers("/").permitAll() // static içeriği herkes görebilsin diye
+                .antMatchers("/admin/**").hasRole("ADMIN") //most restrictive to least restrictive
+                .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/hello/**").hasAnyRole("HERKES","USER")
+                .anyRequest().authenticated() //yetkilendirilmiş herkes bütün pathlara girebilir
+        .and().formLogin();
     }
 }
