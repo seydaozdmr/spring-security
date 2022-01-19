@@ -23,18 +23,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //Set your configuration on the auth object. Custom Authentication Manager
-//        auth.inMemoryAuthentication()
-//                .withUser("turkeyjava")
-//                .password("community")
-//                .roles("USER")
-//        .and()
-//        .withUser("test")
-//        .password("admin")
-//        .roles("ADMIN")
-//        .and()
-//        .withUser("herkes")
-//        .password("herkes")
-//        .roles("HERKES");
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .withDefaultSchema()
