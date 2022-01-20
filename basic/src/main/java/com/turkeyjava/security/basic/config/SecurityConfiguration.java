@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,17 +18,12 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    DataSource dataSource;
-
+    UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //Set your configuration on the auth object. Custom Authentication Manager
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .withDefaultSchema()
-                .withUser(User.withUsername("admin").password("test").roles("ADMIN"))
-                .withUser(User.withUsername("user").password("test").roles("USER"));
+        auth.userDetailsService(userDetailsService);
     }
 
 
@@ -38,13 +34,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .antMatchers("/").permitAll() // static içeriği herkes görebilsin diye
-//                .antMatchers("/admin/**").hasRole("ADMIN") //most restrictive to least restrictive
-//                .antMatchers("/user/**").hasAnyRole("USER","ADMIN")
-//                .antMatchers("/hello/**").hasAnyRole("HERKES","USER")
-//                .anyRequest().authenticated() //yetkilendirilmiş herkes bütün pathlara girebilir
-//        .and().formLogin();
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("ADMIN","USER")
