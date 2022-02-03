@@ -5,6 +5,7 @@
 	<modules>
 		<module>basic</module>
         <module>ldap</module>
+		<module>jwt</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
