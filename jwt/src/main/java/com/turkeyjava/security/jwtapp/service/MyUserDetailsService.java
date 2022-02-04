@@ -21,7 +21,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userRepository.findByUserName(username).orElseThrow(()->new RuntimeException("kullanıcı bulunamadı"));
+        User user=userRepository.findByUserName(username).orElseThrow(()->new UsernameNotFoundException("kullanıcı bulunamadı"));
         return new MyUserDetails(user);
     }
 }
