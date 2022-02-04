@@ -1,7 +1,7 @@
 package com.turkeyjava.security.jwtapp.controller;
 
 import com.turkeyjava.security.jwtapp.config.JwtUtil;
-import com.turkeyjava.security.jwtapp.config.MyUserDetailsService;
+import com.turkeyjava.security.jwtapp.service.MyUserDetailsService;
 import com.turkeyjava.security.jwtapp.model.AuthenticateRequest;
 import com.turkeyjava.security.jwtapp.model.AuthenticateResponse;
 import org.springframework.http.ResponseEntity;
