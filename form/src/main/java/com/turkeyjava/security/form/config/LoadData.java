@@ -1,7 +1,7 @@
-package com.turkeyjava.security.basic.config;
+package com.turkeyjava.security.form.config;
 
-import com.turkeyjava.security.basic.model.User;
-import com.turkeyjava.security.basic.repository.UserRepository;
+import com.turkeyjava.security.form.model.User;
+import com.turkeyjava.security.form.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

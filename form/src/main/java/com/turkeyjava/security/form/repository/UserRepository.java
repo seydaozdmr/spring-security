@@ -1,6 +1,6 @@
-package com.turkeyjava.security.basic.repository;
+package com.turkeyjava.security.form.repository;
 
-import com.turkeyjava.security.basic.model.User;
+import com.turkeyjava.security.form.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

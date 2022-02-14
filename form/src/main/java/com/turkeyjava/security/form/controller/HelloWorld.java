@@ -1,4 +1,4 @@
-package com.turkeyjava.security.basic.controller;
+package com.turkeyjava.security.form.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

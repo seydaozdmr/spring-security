@@ -1,4 +1,4 @@
-package com.turkeyjava.security.basic.model;
+package com.turkeyjava.security.form.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.turkeyjava.security.basic.model;
+package com.turkeyjava.security.form.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

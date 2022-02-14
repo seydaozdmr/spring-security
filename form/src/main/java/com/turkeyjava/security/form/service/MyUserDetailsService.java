@@ -1,8 +1,8 @@
-package com.turkeyjava.security.basic.service;
+package com.turkeyjava.security.form.service;
 
-import com.turkeyjava.security.basic.model.MyUserDetails;
-import com.turkeyjava.security.basic.model.User;
-import com.turkeyjava.security.basic.repository.UserRepository;
+import com.turkeyjava.security.form.model.MyUserDetails;
+import com.turkeyjava.security.form.model.User;
+import com.turkeyjava.security.form.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

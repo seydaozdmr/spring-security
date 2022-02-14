@@ -1,6 +1,5 @@
-package com.turkeyjava.security.basic.config;
+package com.turkeyjava.security.form.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +17,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public SecurityConfiguration(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
+
+//    @Override
+//    @Bean
+//    protected UserDetailsService userDetailsService() {
+//        UserDetails seydaOzdemir=User.builder().username("seyda").password("pass").roles("ADMIN").build();
+//        return new InMemoryUserDetailsManager(seydaOzdemir);
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
