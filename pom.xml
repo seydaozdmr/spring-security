@@ -5,6 +5,7 @@
 	<modules>
 		<module>basic</module>
 		<module>form</module>
+		<module>formbased</module>
         <module>ldap</module>
 		<module>jwt</module>
     </modules>

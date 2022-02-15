@@ -1,4 +1,4 @@
-package com.turkeyjava.security.form.config;
+package com.turkeyjava.security.formbased.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,20 +10,12 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+public class FormBasedSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 
-    public SecurityConfiguration(UserDetailsService userDetailsService) {
+    public FormBasedSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-
-//    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails seydaOzdemir=User.builder().username("seyda").password("pass").roles("ADMIN").build();
-//        return new InMemoryUserDetailsManager(seydaOzdemir);
-//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

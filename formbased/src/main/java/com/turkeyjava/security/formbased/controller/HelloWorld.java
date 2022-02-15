@@ -1,11 +1,10 @@
-package com.turkeyjava.security.form.controller;
+package com.turkeyjava.security.formbased.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HelloWorld {
-
     @RequestMapping("/hello")
     public String helloWorld(){
         return "hello world";

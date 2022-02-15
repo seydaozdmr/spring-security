@@ -1,11 +1,11 @@
-package com.turkeyjava.security.form;
+package com.turkeyjava.security.formbased;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FormBasedSecurityApp {
+public class FormBasedSecurity {
     public static void main(String[] args) {
-        SpringApplication.run(FormBasedSecurityApp.class,args);
+        SpringApplication.run(FormBasedSecurity.class,args);
     }
 }
