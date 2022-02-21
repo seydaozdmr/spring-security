@@ -17,26 +17,56 @@ import java.util.ArrayList;
 @EnableWebSecurity
 public class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+//    @Override
+//    @Bean
+//    protected UserDetailsService userDetailsService() {
+//        UserDetails seydaOzdemir=User.builder().username("seyda").password("pass").roles("ADMIN").build();
+//        return new InMemoryUserDetailsManager(seydaOzdemir);
+//    }
+
+    //we use UserDetailsService from bean userDetailsService()
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//      //We can get User Details Service from Authentication Manager Builder
+//        auth.inMemoryAuthentication()
+//                .getUserDetailsService();
+//    }
+
     @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails seydaOzdemir=User.builder().username("seyda").password("pass").roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(seydaOzdemir);
+    protected void configure(AuthenticationManagerBuilder auth) throws  Exception {
+        UserDetailsService userDetailsService;
+
+        var user = User.withUsername("user")
+                .password("pass")
+                .authorities("read")
+                .build();
+
+        userDetailsService=new InMemoryUserDetailsManager(user);
+
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .getUserDetailsService();
-                //.withUser(new User("user","pass",new ArrayList<>()));
-    }
+
+
+    //we don't use UserDetailsService explicitly
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser(new User("user","pass",new ArrayList<>()));
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
+        http
+                .authorizeRequests().anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return NoOpPasswordEncoder.getInstance();
+//    }
 }
