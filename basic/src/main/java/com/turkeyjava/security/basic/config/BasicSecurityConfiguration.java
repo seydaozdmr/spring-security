@@ -34,6 +34,12 @@ public class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws  Exception {
+        /**
+         * SecurityConfigurer sıfınıda kurulan yapı ile aşağıdaki yapı aynıdır
+         * UserDetailsService yaratılıyor, concrete olarak implemente edilmiş InMemoryUserDetailsManager
+         * sınıfının constructor'ına oluşturulan UserDetails "user" nesnesi veriliyor.
+         * Daha sonra auth nesnesine (AuthenticationManagerBuilder)
+         */
         UserDetailsService userDetailsService;
 
         var user = User.withUsername("user")
