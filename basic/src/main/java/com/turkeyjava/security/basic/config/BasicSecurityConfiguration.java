@@ -80,6 +80,10 @@ public class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .httpBasic();
+//        http.httpBasic(c -> {
+//            c.realmName("OTHER");
+//            c.authenticationEntryPoint(new CustomEntryPoint());
+//        });
     }
 
 //    @Bean
