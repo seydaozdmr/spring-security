@@ -8,6 +8,7 @@
 		<module>formbased</module>
         <module>ldap</module>
 		<module>jwt</module>
+		<module>productservice</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

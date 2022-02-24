@@ -31,12 +31,16 @@ public class FormBasedSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /**
+         * formLogin eğer httpBasic authentication yapmaya çalışırsanız, kullanıcı adı şifre doğru olsa bile
+         * login sayfasına yönlendirir, bu sorunun çözümü .and().httpBasic() eklemektir.
+         */
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasAnyRole("ADMIN","USER")
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/**").permitAll()
-                .and().formLogin();
+                .and().formLogin().and().httpBasic();
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
