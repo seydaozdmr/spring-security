@@ -27,9 +27,9 @@ public class LoadData implements CommandLineRunner {
         authority.setAuthority("READ");
 
         Role role=new Role();
-        role.setRoleName("ADMIN");
-        role.setAuthorities(List.of(authority));
-        authority.setRoles(List.of(role));
+        role.setRoleName("ROLE_ADMIN");
+        role.addAuthority(authority);
+        authority.addRole(role);
 
         User user=new User();
         user.setUsername("test");
@@ -37,9 +37,26 @@ public class LoadData implements CommandLineRunner {
         user.setActive(true);
         user.setAlgorithm(EncryptionAlgorithm.BCRYPT);
         user.setRoles(List.of(role));
-        role.setUsers(List.of(user));
-
+        role.addUser(user);
         userRepository.save(user);
+
+        Authority authority1=new Authority();
+        authority1.setAuthority("READ");
+
+        Role role1=new Role();
+        role1.setRoleName("ROLE_USER");
+        role1.addAuthority(authority1);
+        authority1.addRole(role1);
+
+        User user1=new User();
+        user1.setUsername("user");
+        user1.setPassword(passwordEncoder.encode("pass"));
+        user1.setActive(true);
+        user1.setAlgorithm(EncryptionAlgorithm.BCRYPT);
+        user1.setRoles(List.of(role1));
+        role1.addUser(user1);
+        userRepository.save(user1);
+
 
         Product p1=new Product();
         p1.setProductName("Book");
