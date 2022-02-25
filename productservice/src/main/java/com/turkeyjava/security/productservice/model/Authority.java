@@ -1,6 +1,7 @@
 package com.turkeyjava.security.productservice.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ public class Authority {
     private String authority;
 
     @ManyToMany(mappedBy = "authorities")
-    private List<Role> roles;
+    private List<Role> roles=new ArrayList<>();
 
     public Authority() {
     }
@@ -39,5 +40,8 @@ public class Authority {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+    public void addRole(Role role){
+        this.roles.add(role);
     }
 }
