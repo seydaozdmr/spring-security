@@ -26,10 +26,20 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /**
+         * hasAuthority -> if authenticated user has grantedauthority
+         * you can use access for complicate authority managements
+         */
         http
                 .authorizeRequests()
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/user").hasRole("USER")
+                .anyRequest().authenticated()
+                //.anyRequest()
+                //.hasRole("ADMIN")
+                //.access("hasAuthority('READ') and !hasAuthority('DELETE')")
+                //.hasAuthority("READ")
+                //.authenticated()
                 .and()
                 .formLogin()
                 .defaultSuccessUrl("/home",true);
