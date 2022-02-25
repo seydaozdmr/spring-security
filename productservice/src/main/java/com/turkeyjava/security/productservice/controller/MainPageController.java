@@ -28,4 +28,14 @@ public class MainPageController {
     public ResponseEntity<String> user(Authentication authentication){
         return ResponseEntity.ok(authentication.getName());
     }
+
+    @RequestMapping("/admin")
+    public String admin(){
+        return "this is admin paga";
+    }
+
+    @RequestMapping("/guess")
+    public String guess(){
+        return "wellcome guess";
+    }
 }
