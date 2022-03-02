@@ -1,6 +1,7 @@
 package com.turkeyjava.security.productservice.config;
 
 import com.turkeyjava.security.productservice.filter.AuthenticationLoggingFilter;
+import com.turkeyjava.security.productservice.filter.CsrfTokenLogger;
 import com.turkeyjava.security.productservice.filter.RequestValidationFilter;
 import com.turkeyjava.security.productservice.filter.StaticKeyAuthorizationKeyFilter;
 import com.turkeyjava.security.productservice.service.CustomAuthenticationProvider;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 @EnableWebSecurity
 public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -18,10 +20,10 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
      * Bu filtrenin application.properties dosyasındaki veriyi alabilmesi için bean olarak yaratılması
      * ve run time'de kullanılması gerekiyor.
      */
-    private final StaticKeyAuthorizationKeyFilter filter;
-    public CustomSecurityConfig(CustomAuthenticationProvider customAuthenticationProvider, StaticKeyAuthorizationKeyFilter filter) {
+    //private final StaticKeyAuthorizationKeyFilter filter;
+    public CustomSecurityConfig(CustomAuthenticationProvider customAuthenticationProvider){ //StaticKeyAuthorizationKeyFilter filter) {
         this.customAuthenticationProvider = customAuthenticationProvider;
-        this.filter = filter;
+        //this.filter = filter;
     }
 
 
@@ -39,7 +41,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
          */
         http
                 .authorizeRequests()
-                .anyRequest().permitAll();
+                //.anyRequest().permitAll();
                 //.antMatchers(HttpMethod.POST,"/admin").hasRole("ADMIN")
                 /**
                  * IMPORTANT To say it again: I recommend and prefer MVC matchers.
@@ -51,9 +53,9 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                  * and make sure your expressions indeed match everything for which
                  * you need to apply authorization rules.
                  */
-                //.antMatchers("/admin").hasRole("ADMIN")
-                //.antMatchers("/user").hasRole("USER")
-                //.anyRequest().authenticated();
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/user").hasRole("USER")
+                .anyRequest().authenticated().and().httpBasic();
 
                 //.anyRequest()
                 //.hasRole("ADMIN")
@@ -63,27 +65,29 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.and()
                 //.formLogin()
                 //.defaultSuccessUrl("/home",true)
-        //.and().httpBasic();
+//        .and().httpBasic();
+                //http.httpBasic();
+//        http.csrf().disable();
+//        http.headers()
+//                .frameOptions()
+//                .sameOrigin();
+        http.addFilterAfter(new CsrfTokenLogger(), CsrfFilter.class);
 
-        http.csrf().disable();
-        http.headers()
-                .frameOptions()
-                .sameOrigin();
-        /**
-         * Configuring the custom filter before authentication
-         */
-        http.addFilterBefore(new RequestValidationFilter(),
-                BasicAuthenticationFilter.class);
-        /**
-         * Configuring the custom filter after authentication
-         */
-        http.addFilterAfter(new AuthenticationLoggingFilter(),
-                BasicAuthenticationFilter.class);
-        /**
-         * Configuring the custom filter instead basic authentication filter
-         */
-        http.addFilterAt(filter,
-                BasicAuthenticationFilter.class);
+//        /**
+//         * Configuring the custom filter before authentication
+//         */
+//        http.addFilterBefore(new RequestValidationFilter(),
+//                BasicAuthenticationFilter.class);
+//        /**
+//         * Configuring the custom filter after authentication
+//         */
+//        http.addFilterAfter(new AuthenticationLoggingFilter(),
+//                BasicAuthenticationFilter.class);
+//        /**
+//         * Configuring the custom filter instead basic authentication filter
+//         */
+//        http.addFilterAt(filter,
+//                BasicAuthenticationFilter.class);
     }
 
 //    @Bean

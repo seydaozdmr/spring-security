@@ -5,7 +5,9 @@ import com.turkeyjava.security.productservice.model.Product;
 import com.turkeyjava.security.productservice.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -34,8 +36,15 @@ public class MainPageController {
         return "this is admin paga";
     }
 
-    @RequestMapping("/guess")
+    @RequestMapping("/guest")
     public String guess(){
-        return "wellcome guess";
+        return "wellcome guest";
     }
+
+    @PostMapping("/guest")
+    public String postGuess(){
+        return "guest posted";
+    }
+
+
 }
