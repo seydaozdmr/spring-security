@@ -1,16 +1,12 @@
 package com.turkeyjava.security.productservice.config;
 
-import com.turkeyjava.security.productservice.filter.AuthenticationLoggingFilter;
 import com.turkeyjava.security.productservice.filter.CsrfTokenLogger;
-import com.turkeyjava.security.productservice.filter.RequestValidationFilter;
-import com.turkeyjava.security.productservice.filter.StaticKeyAuthorizationKeyFilter;
+import com.turkeyjava.security.productservice.repository.CustomCsrfTokenRepository;
 import com.turkeyjava.security.productservice.service.CustomAuthenticationProvider;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 
 @EnableWebSecurity
@@ -21,9 +17,18 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
      * ve run time'de kullanılması gerekiyor.
      */
     //private final StaticKeyAuthorizationKeyFilter filter;
-    public CustomSecurityConfig(CustomAuthenticationProvider customAuthenticationProvider){ //StaticKeyAuthorizationKeyFilter filter) {
+
+    /**
+     *We use a custom implementation of the CsrfTokenRepository
+     * to declare a bean in the configuration class. We then plug the bean into the CSRF
+     * protection mechanism with the csrfTokenRepository() method of CsrfConfigurer.
+     */
+    private final CustomCsrfTokenRepository customCsrfTokenRepository;
+
+    public CustomSecurityConfig(CustomAuthenticationProvider customAuthenticationProvider, CustomCsrfTokenRepository customCsrfTokenRepository){ //StaticKeyAuthorizationKeyFilter filter) {
         this.customAuthenticationProvider = customAuthenticationProvider;
         //this.filter = filter;
+        this.customCsrfTokenRepository = customCsrfTokenRepository;
     }
 
 
@@ -72,7 +77,10 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .frameOptions()
 //                .sameOrigin();
         http.addFilterAfter(new CsrfTokenLogger(), CsrfFilter.class);
-
+        http.csrf(c -> {
+            c.csrfTokenRepository(customCsrfTokenRepository);
+            c.ignoringAntMatchers("/product/update");
+        });
 //        /**
 //         * Configuring the custom filter before authentication
 //         */

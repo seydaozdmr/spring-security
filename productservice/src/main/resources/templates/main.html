@@ -10,9 +10,19 @@
         <span><input type="text" name="name" /></span>
         <span><button type="submit">Add</button></span>
 
-<!--        <input type="hidden"-->
-<!--               th:name="${_csrf.parameterName}"-->
-<!--               th:value="${_csrf.token}" />-->
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+    </form>
+
+    <form action="/product/update" method="post">
+        <span>Name:</span>
+        <span><input type="text" name="name" /></span>
+        <span><button type="submit">Update</button></span>
+
+        <!--        <input type="hidden"-->
+        <!--               th:name="${_csrf.parameterName}"-->
+        <!--               th:value="${_csrf.token}" />-->
     </form>
 
 </body>

@@ -18,4 +18,10 @@ public class ProductController {
         System.out.println("Name : "+name);
         return "main";
     }
+
+    @PostMapping("/product/update")
+    public String productUpdate(@RequestParam String name){
+        System.out.println("Name : "+name);
+        return "main";
+    }
 }
