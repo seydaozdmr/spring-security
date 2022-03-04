@@ -9,6 +9,8 @@
         <module>ldap</module>
 		<module>jwt</module>
 		<module>productservice</module>
+		<module>authentication-service</module>
+        <module>business-service</module>
     </modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
