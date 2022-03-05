@@ -10,8 +10,7 @@ public class Otp {
     private UUID id;
     private String code;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
+    @OneToOne(mappedBy = "otp")
     private User user;
 
     public Otp() {

@@ -12,4 +12,5 @@ public interface OtpRepository extends JpaRepository<Otp, UUID> {
     Optional<Otp> findOtpByUserId(UUID userId);
 //    @Query(value = "select p from Otp p join User u on p.user_id=u.id where u.username = ?1")
 //    Optional<Otp> findOtpByUserByUserName(String username);
+    Optional<Otp> findOtpByUser(User user);
 }

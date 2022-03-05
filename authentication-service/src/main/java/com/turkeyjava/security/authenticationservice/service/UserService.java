@@ -46,7 +46,7 @@ public class UserService {
 
     private void renewOtp(User user) {
         String code = GenerateCodeUtil.generateCode();
-
+        //TODO buranın düzeltilmesi gerekiyor
         Optional<Otp> optionalOtp=otpRepository.findOtpByUserId(user.getId());
         if(optionalOtp.isPresent()){
             Otp otp=optionalOtp.get();
@@ -55,17 +55,22 @@ public class UserService {
             Otp otp=new Otp();
             otp.setUser(user);
             otp.setCode(code);
+            user.setOtp(otp);
+
             otpRepository.save(otp);
+            userRepository.save(user);
         }
     }
     public boolean check(Otp otpToValidate){
-        Optional<Otp> optionalOtp=otpRepository.findById(otpToValidate.getId());
-        //Optional<Otp> optionalOtp1=otpRepository.findOtpByUser(otpToValidate.getUser());
-       // System.out.println(optionalOtp1.get());
-        if(optionalOtp.isPresent()){
-            Otp otp=optionalOtp.get();
-            if(otpToValidate.getCode().equals(otp.getCode()))
-                return true;
+        //Optional<Otp> optionalOtp=otpRepository.findById(otpToValidate.getId());
+        Optional<User> optionalUser=userRepository.findUserByUsername(otpToValidate.getUser().getUsername());
+        if(optionalUser.isPresent()){
+            Optional<Otp> optionalOtp= otpRepository.findById(optionalUser.get().getOtp().getId());
+            if(optionalOtp.isPresent()){
+                Otp otp=optionalOtp.get();
+                if(otpToValidate.getCode().equals(otp.getCode()))
+                    return true;
+            }
         }
         return false;
     }

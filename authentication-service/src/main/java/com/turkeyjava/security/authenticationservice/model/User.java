@@ -12,8 +12,10 @@ public class User {
     private UUID id;
     private String username;
     private String password;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Otp> otpList;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "otp_id",referencedColumnName = "id")
+    private Otp otp;
 
     public User() {
     }
@@ -42,11 +44,11 @@ public class User {
         this.password = password;
     }
 
-    public List<Otp> getOtpList() {
-        return otpList;
+    public Otp getOtp() {
+        return otp;
     }
 
-    public void setOtpList(List<Otp> otpList) {
-        this.otpList = otpList;
+    public void setOtp(Otp otp) {
+        this.otp = otp;
     }
 }
