@@ -4,6 +4,7 @@ import com.turkeyjava.security.businessservice.filter.InitialAuthenticationFilte
 import com.turkeyjava.security.businessservice.filter.JwtAuthenticationFilter;
 import com.turkeyjava.security.businessservice.service.OtpAuthenticationProvider;
 import com.turkeyjava.security.businessservice.service.UsernamePasswordAuthenticationProvider;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,10 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final OtpAuthenticationProvider otpAuthenticationProvider;
     private final UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider;
 
-    public SecurityConfig(InitialAuthenticationFilter initialAuthenticationFilter,
-                          JwtAuthenticationFilter jwtAuthenticationFilter,
-                          OtpAuthenticationProvider otpAuthenticationProvider,
-                          UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider) {
+    public SecurityConfig(
+            InitialAuthenticationFilter initialAuthenticationFilter, JwtAuthenticationFilter jwtAuthenticationFilter,
+            OtpAuthenticationProvider otpAuthenticationProvider,
+            UsernamePasswordAuthenticationProvider usernamePasswordAuthenticationProvider) {
         this.initialAuthenticationFilter = initialAuthenticationFilter;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.otpAuthenticationProvider = otpAuthenticationProvider;
@@ -45,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 }
