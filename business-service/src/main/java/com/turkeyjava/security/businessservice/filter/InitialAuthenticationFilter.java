@@ -5,6 +5,7 @@ import com.turkeyjava.security.businessservice.auth.UserNamePasswordAuthenticati
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -21,12 +22,16 @@ import java.util.Map;
 
 @Component
 public class InitialAuthenticationFilter extends OncePerRequestFilter {
-    private final AuthenticationManager manager;
+    
+    private final AuthenticationManager authenticationManager;
+    
+
+
     @Value("${jwt.signing.key}")
     private String signingKey;
 
-    public InitialAuthenticationFilter(AuthenticationManager manager) {
-        this.manager = manager;
+    public InitialAuthenticationFilter(@Lazy  AuthenticationManager authenticationManager) {
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class InitialAuthenticationFilter extends OncePerRequestFilter {
 
         if(code==null){
             Authentication a=new UserNamePasswordAuthentication(username,password);
-            manager.authenticate(a);
+            authenticationManager.authenticate(a);
         }else {
             Authentication a=new OtpAuthentication(username,code);
             SecretKey key = Keys.hmacShaKeyFor(
