@@ -52,11 +52,13 @@ public class InitialAuthenticationFilter extends OncePerRequestFilter {
             authenticationManager.authenticate(a);
         }else {
             Authentication a=new OtpAuthentication(username,code);
+            a=authenticationManager.authenticate(a);
+
             SecretKey key = Keys.hmacShaKeyFor(
                     signingKey.getBytes(
                             StandardCharsets.UTF_8));
             String jwt = Jwts.builder()
-                    .setClaims(Map.of("username",username))
+                    .setClaims(Map.of("username",a.getName()))
                     .signWith(key)
                     .compact();
 
