@@ -60,6 +60,7 @@ public class UserService {
             otpRepository.save(otp);
             userRepository.save(user);
         }
+        System.out.println("Code : "+code);
     }
     public boolean check(Otp otpToValidate){
         //Optional<Otp> optionalOtp=otpRepository.findById(otpToValidate.getId());
